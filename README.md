@@ -1,1 +1,1 @@
-GraffpaperApp
+Graffpaper

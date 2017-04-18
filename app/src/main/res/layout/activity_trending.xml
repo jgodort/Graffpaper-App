@@ -1,0 +1,5 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/trendingWallpaperFragment"
+    android:name="com.software.jgodort.graffpaper.presentation.ui.fragments.TrendingWallpapersFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
