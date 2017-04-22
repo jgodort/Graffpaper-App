@@ -32,8 +32,11 @@ public class TrendingWallpapersPresenterImpl extends AbstractPresenter implement
 
     @Override
     public void resume() {
-        mView.showProgress();
-        getTrendingWallpapers();
+        if (!mView.isImagesLoaded()) {
+            mView.showProgress();
+            getTrendingWallpapers();
+        }
+
     }
 
     @Override

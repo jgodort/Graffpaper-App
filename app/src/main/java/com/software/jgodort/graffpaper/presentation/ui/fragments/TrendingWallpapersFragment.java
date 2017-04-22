@@ -55,6 +55,8 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
 
     private TrendingWallpapersPresenter mPresenter;
 
+    private boolean hasImagesLoaded;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
     private void init() {
         mWallpaperRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mWallpaperRecycler.setHasFixedSize(true);
-        mWallpaperAdapter = new WallpaperAdapter(getContext());
+        mWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView);
         mWallpaperRecycler.setAdapter(mWallpaperAdapter);
 
 
@@ -119,7 +121,15 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
 
     @Override
     public void setWallpapersRetrieved(List<Image> wallpapers) {
+        hasImagesLoaded=true;
         mWallpaperAdapter.setmImages(wallpapers);
         mWallpaperAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public boolean isImagesLoaded() {
+        return hasImagesLoaded;
+    }
+
+
 }

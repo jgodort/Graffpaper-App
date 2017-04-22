@@ -13,9 +13,11 @@ import java.util.List;
 public interface TrendingWallpapersPresenter extends BasePresenter {
 
 
-    interface  View extends BaseView{
+    interface View extends BaseView {
 
-       void setWallpapersRetrieved(List<Image> wallpapers);
+        void setWallpapersRetrieved(List<Image> wallpapers);
+        boolean isImagesLoaded();
+
     }
 
     void getTrendingWallpapers();

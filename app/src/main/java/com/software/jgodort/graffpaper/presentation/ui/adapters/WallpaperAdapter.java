@@ -26,8 +26,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private List<Image> mImages;
     private Context mContext;
 
-    public WallpaperAdapter(Context context) {
+    private View mEmptyView;
+
+    public WallpaperAdapter(Context context, View emptyView) {
         this.mContext = context;
+        this.mEmptyView = emptyView;
     }
 
 
@@ -41,12 +44,18 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Image image = mImages.get(position);
-        Glide.with(mContext).load(image.getUrls().getThumb()).crossFade().into(holder.mWallpaperThumb);
+        // holder.mWallpaperThumb.setImageResource(R.drawable.sample1);
+        Glide.with(mContext).
+                load(image.getUrls().getThumb()).
+                //override(150, 200).
+                centerCrop().
+                into(holder.mWallpaperThumb);
 
     }
 
     @Override
     public int getItemCount() {
+        mEmptyView.setVisibility(mImages != null && !mImages.isEmpty() ? View.GONE : View.VISIBLE);
         return mImages != null ? mImages.size() : 0;
     }
 
