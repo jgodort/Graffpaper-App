@@ -34,7 +34,7 @@
         android:layout_below="@id/appbar"
         app:layoutManager="GridLayoutManager"
         app:spanCount="3"
-        tools:context=".presentation.ui.activities.Trending"
+        tools:context=".presentation.ui.activities.TrendingActivity"
         tools:listitem="@layout/item_wallpaper" />
 
     <LinearLayout android:visibility="gone"

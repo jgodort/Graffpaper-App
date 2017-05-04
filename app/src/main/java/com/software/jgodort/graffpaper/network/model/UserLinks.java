@@ -1,10 +1,13 @@
 
 package com.software.jgodort.graffpaper.network.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserLinks {
+public class UserLinks implements Parcelable {
 
     @SerializedName("self")
     @Expose
@@ -84,4 +87,45 @@ public class UserLinks {
         this.followers = followers;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.self);
+        dest.writeString(this.html);
+        dest.writeString(this.photos);
+        dest.writeString(this.likes);
+        dest.writeString(this.portfolio);
+        dest.writeString(this.following);
+        dest.writeString(this.followers);
+    }
+
+    public UserLinks() {
+    }
+
+    protected UserLinks(Parcel in) {
+        this.self = in.readString();
+        this.html = in.readString();
+        this.photos = in.readString();
+        this.likes = in.readString();
+        this.portfolio = in.readString();
+        this.following = in.readString();
+        this.followers = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserLinks> CREATOR = new Parcelable.Creator<UserLinks>() {
+        @Override
+        public UserLinks createFromParcel(Parcel source) {
+            return new UserLinks(source);
+        }
+
+        @Override
+        public UserLinks[] newArray(int size) {
+            return new UserLinks[size];
+        }
+    };
 }

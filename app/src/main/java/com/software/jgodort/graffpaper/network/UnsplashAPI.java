@@ -52,7 +52,7 @@ public interface UnsplashAPI {
      * @return a list with the photos of the user.
      */
     @GET("user/{user}/photos")
-    List<Image> getUserPhotos(@Path("user") String user,@Query("client_id") String clientId);
+    Call<List<Image>> getUserPhotos(@Path("user") String user,@Query("client_id") String clientId);
 
 
     /**

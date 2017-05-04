@@ -9,4 +9,6 @@ import com.software.jgodort.graffpaper.network.ResponseListener;
 public interface UnsplashRepository {
 
     void getTrendingPhotos(ResponseListener listener);
+
+    void getUserPhotos(ResponseListener listener, String username);
 }

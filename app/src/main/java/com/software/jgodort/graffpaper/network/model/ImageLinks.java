@@ -1,10 +1,13 @@
 
 package com.software.jgodort.graffpaper.network.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ImageLinks {
+public class ImageLinks implements Parcelable {
 
     @SerializedName("self")
     @Expose
@@ -18,6 +21,11 @@ public class ImageLinks {
     @SerializedName("download_location")
     @Expose
     private String downloadLocation;
+
+    public  ImageLinks(){
+
+    }
+
 
     public String getSelf() {
         return self;
@@ -51,4 +59,36 @@ public class ImageLinks {
         this.downloadLocation = downloadLocation;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.self);
+        dest.writeString(this.html);
+        dest.writeString(this.download);
+        dest.writeString(this.downloadLocation);
+    }
+
+    protected ImageLinks(Parcel in) {
+        this.self = in.readString();
+        this.html = in.readString();
+        this.download = in.readString();
+        this.downloadLocation = in.readString();
+    }
+
+    public static final Parcelable.Creator<ImageLinks> CREATOR = new Parcelable.Creator<ImageLinks>() {
+        @Override
+        public ImageLinks createFromParcel(Parcel source) {
+            return new ImageLinks(source);
+        }
+
+        @Override
+        public ImageLinks[] newArray(int size) {
+            return new ImageLinks[size];
+        }
+    };
 }

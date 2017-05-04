@@ -1,6 +1,7 @@
 package com.software.jgodort.graffpaper.presentation.ui.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.software.jgodort.graffpaper.network.UnsplashRepositoryImpl;
 import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.presentation.presenters.TrendingWallpapersPresenter;
 import com.software.jgodort.graffpaper.presentation.presenters.impl.TrendingWallpapersPresenterImpl;
+import com.software.jgodort.graffpaper.presentation.ui.activities.WallpaperDetailActivity;
 import com.software.jgodort.graffpaper.presentation.ui.adapters.WallpaperAdapter;
 import com.software.jgodort.graffpaper.threading.MainThreadImpl;
 
@@ -34,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by javie on 14/04/2017.
  */
 
-public class TrendingWallpapersFragment extends Fragment implements TrendingWallpapersPresenter.View {
+public class TrendingWallpapersFragment extends Fragment implements TrendingWallpapersPresenter.View, WallpaperAdapter.OnClickHandler {
 
 
     @BindView(R.id.wallpaper_recycler)
@@ -75,7 +77,7 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
     private void init() {
         mWallpaperRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mWallpaperRecycler.setHasFixedSize(true);
-        mWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView);
+        mWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView, this);
         mWallpaperRecycler.setAdapter(mWallpaperAdapter);
 
 
@@ -121,7 +123,7 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
 
     @Override
     public void setWallpapersRetrieved(List<Image> wallpapers) {
-        hasImagesLoaded=true;
+        hasImagesLoaded = true;
         mWallpaperAdapter.setmImages(wallpapers);
         mWallpaperAdapter.notifyDataSetChanged();
     }
@@ -131,5 +133,16 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
         return hasImagesLoaded;
     }
 
+
+    public void onWallpaperImageSelected(Image image, WallpaperAdapter.ViewHolder vh) {
+//        Bundle arguments = new Bundle();
+//        arguments.putParcelable(SELECTED_WALLPAPER, image);
+//        WallpaperImageDetailFragment detailFragment = WallpaperImageDetailFragment.newInstance();
+//        detailFragment.setArguments(arguments);
+
+        Intent intent = new Intent(getContext(), WallpaperDetailActivity.class);
+        intent.putExtra(WallpaperImageDetailFragment.SELECTED_WALLPAPER, image);
+        getContext().startActivity(intent);
+    }
 
 }

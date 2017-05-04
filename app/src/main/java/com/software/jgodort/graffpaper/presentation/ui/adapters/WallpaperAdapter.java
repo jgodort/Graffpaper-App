@@ -1,6 +1,7 @@
 package com.software.jgodort.graffpaper.presentation.ui.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.network.model.Image;
+import com.software.jgodort.graffpaper.presentation.ui.fragments.WallpaperImageDetailFragment;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,14 +26,17 @@ import butterknife.ButterKnife;
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
 
 
+
     private List<Image> mImages;
     private Context mContext;
+    private OnClickHandler mHandler;
 
     private View mEmptyView;
 
-    public WallpaperAdapter(Context context, View emptyView) {
+    public WallpaperAdapter(Context context, View emptyView, OnClickHandler handler) {
         this.mContext = context;
         this.mEmptyView = emptyView;
+        this.mHandler = handler;
     }
 
 
@@ -41,15 +47,23 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        Image image = mImages.get(position);
+        final Image image = mImages.get(position);
         // holder.mWallpaperThumb.setImageResource(R.drawable.sample1);
         Glide.with(mContext).
                 load(image.getUrls().getThumb()).
                 //override(150, 200).
-                centerCrop().
+                        centerCrop().
                 into(holder.mWallpaperThumb);
+
+
+        holder.mWallpaperThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.onWallpaperImageSelected(image, holder);
+            }
+        });
 
     }
 
@@ -67,7 +81,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         this.mImages = mImages;
     }
 
-    final class ViewHolder extends RecyclerView.ViewHolder {
+
+    /**
+     * View holder pattern for efficiency on the reuse of layout items on scrolling movements
+     */
+    public final class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_thumb)
         ImageView mWallpaperThumb;
@@ -80,4 +98,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         }
     }
 
+    public interface OnClickHandler {
+        void onWallpaperImageSelected(Image image, WallpaperAdapter.ViewHolder vh);
+    }
 }

@@ -33,8 +33,15 @@ public class UnsplashRepositoryImpl implements UnsplashRepository {
 
     @Override
     public void getTrendingPhotos(ResponseListener listener) {
-        ResponseCallback<List<Image>> responseCallback=new ResponseCallback<>(listener);
+        ResponseCallback<List<Image>> responseCallback = new ResponseCallback<>(listener);
         Call<List<Image>> call = unsplashAPI.getPhotos(mApplicationId);
+        call.enqueue(responseCallback);
+    }
+
+    @Override
+    public void getUserPhotos(ResponseListener listener, String username) {
+        ResponseCallback<List<Image>> responseCallback = new ResponseCallback<>(listener);
+        Call<List<Image>> call = unsplashAPI.getUserPhotos(username, mApplicationId);
         call.enqueue(responseCallback);
     }
 }
