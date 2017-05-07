@@ -117,7 +117,7 @@ public class User implements Parcelable {
         this.bio = bio;
     }
 
-    public Object getLocation() {
+    public String getLocation() {
         return location;
     }
 
@@ -201,7 +201,7 @@ public class User implements Parcelable {
         this.lastName = in.readString();
         this.portfolioUrl = in.readString();
         this.bio = in.readString();
-        this.location = in.readParcelable(Object.class.getClassLoader());
+        this.location = in.readString();
         this.totalLikes = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalPhotos = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalCollections = (Integer) in.readValue(Integer.class.getClassLoader());

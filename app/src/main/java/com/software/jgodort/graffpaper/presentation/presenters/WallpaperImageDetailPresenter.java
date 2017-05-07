@@ -2,6 +2,7 @@ package com.software.jgodort.graffpaper.presentation.presenters;
 
 import android.content.Context;
 
+import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.presentation.presenters.base.BasePresenter;
 import com.software.jgodort.graffpaper.presentation.ui.BaseView;
 
@@ -24,13 +25,14 @@ public interface WallpaperImageDetailPresenter extends BasePresenter {
         void setUserPhotoThumbnail(String userPhotoUrl);
 
         void setWallpaperImage(String imageUrl);
-
     }
 
 
-    void setAsDeviceWallpaper(Context context);
+    void setAsDeviceWallpaper();
 
     void getUserImages(String username);
+
+    void setImageData(Image image);
 
 }
 

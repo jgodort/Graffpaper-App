@@ -19,6 +19,8 @@ public class GraffpaperApplication extends Application {
 
     private NetworkComponent mNetworkComponent;
 
+    private ApplicationComponent mApplicationComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,10 +39,18 @@ public class GraffpaperApplication extends Application {
                 .builder()
                 .retrofitModule(new RetrofitModule(app))
                 .build();
+        mApplicationComponent=DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(app))
+                .build();
+
 
 
     }
 
+    public ApplicationComponent getApplicationComponent(){
+        return mApplicationComponent;
+    }
     public RepositoriesComponent getRepositoriesComponent() {
         return mRepositoriesComponent;
     }

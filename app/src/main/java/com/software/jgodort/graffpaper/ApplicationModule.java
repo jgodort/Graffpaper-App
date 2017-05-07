@@ -1,5 +1,6 @@
 package com.software.jgodort.graffpaper;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -15,10 +16,13 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-    GraffpaperApplication mGraffpaperApplication;
+    private GraffpaperApplication mGraffpaperApplication;
+
+    private final Context mContext;
 
     public ApplicationModule(GraffpaperApplication application){
         mGraffpaperApplication=application;
+        mContext=application.getApplicationContext();
     }
 
     @Provides
@@ -31,6 +35,12 @@ public class ApplicationModule {
     @Singleton
     SharedPreferences providesSharedPreferences(){
         return PreferenceManager.getDefaultSharedPreferences(mGraffpaperApplication);
+    }
+
+    @Provides
+    @Singleton
+    Context providesContext(){
+        return mContext;
     }
 
 }

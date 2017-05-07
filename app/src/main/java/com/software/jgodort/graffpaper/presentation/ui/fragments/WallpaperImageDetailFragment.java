@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -84,12 +85,15 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
         View rootView = inflater.inflate(R.layout.fragment_wallpaper_detail, container, false);
 
         ButterKnife.bind(this, rootView);
+        //initialize the presenter.
+        init();
+        //Obtain the image from the bundle.
         Bundle bundle = getArguments();
-        if (selectedImage != null) {
+        if (bundle != null) {
             selectedImage=bundle.getParcelable(SELECTED_WALLPAPER);
+            mPresenter.setImageData(selectedImage);
         }
 
-        init();
         return rootView;
 
     }
@@ -102,13 +106,14 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
         mPresenter = new WallpaperImageDetailPresenterImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
+                this,
                 mUnsplashRepository);
 
 
         mApplyWallpaperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.setAsDeviceWallpaper(getContext());
+                mPresenter.setAsDeviceWallpaper();
             }
         });
     }
@@ -144,7 +149,12 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
 
     @Override
     public void showError(String message) {
+        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(getView(),message,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -171,22 +181,19 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     @Override
     public void setUserPhotoThumbnail(String userPhotoUrl) {
 
-        Glide.
-                with(this).
+        Glide.with(this).
                 load(userPhotoUrl).
-                centerCrop().
+                override(180,200).
                 into(mProfileImage);
     }
 
     @Override
     public void setWallpaperImage(String imageUrl) {
 
-        Glide.
-                with(this).
+        Glide.with(this).
                 load(imageUrl).
                 centerCrop().
                 into(mWallpaperImage);
     }
-
 
 }

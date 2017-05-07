@@ -25,7 +25,7 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
+                android:layout_gravity="top" android:id="@+id/toolbar"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin">
 
@@ -41,7 +41,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabWallpaper"
+        android:id="@+id/fabWallpaper" android:backgroundTint="@color/colorAccent"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"
@@ -52,7 +52,7 @@
         android:translationZ="@dimen/pressed_fab_elevation"
         app:borderWidth="0dp"
         app:fabSize="normal"
-        app:layout_anchor="@id/appbar"
+        app:layout_anchor="@id/toolbar"
         app:layout_anchorGravity="bottom|right|end" />
 
 
@@ -60,7 +60,8 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/appbar">
+        android:layout_gravity="bottom"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

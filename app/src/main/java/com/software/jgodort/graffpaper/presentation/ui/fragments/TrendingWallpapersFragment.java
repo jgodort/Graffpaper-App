@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +18,6 @@ import com.software.jgodort.graffpaper.GraffpaperApplication;
 import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.domain.executor.impl.ThreadExecutor;
 import com.software.jgodort.graffpaper.domain.repository.UnsplashRepository;
-import com.software.jgodort.graffpaper.network.UnsplashRepositoryImpl;
 import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.presentation.presenters.TrendingWallpapersPresenter;
 import com.software.jgodort.graffpaper.presentation.presenters.impl.TrendingWallpapersPresenterImpl;
@@ -118,7 +118,12 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
 
     @Override
     public void showError(String message) {
+        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(getView(),message,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -135,14 +140,11 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
 
 
     public void onWallpaperImageSelected(Image image, WallpaperAdapter.ViewHolder vh) {
-//        Bundle arguments = new Bundle();
-//        arguments.putParcelable(SELECTED_WALLPAPER, image);
-//        WallpaperImageDetailFragment detailFragment = WallpaperImageDetailFragment.newInstance();
-//        detailFragment.setArguments(arguments);
-
-        Intent intent = new Intent(getContext(), WallpaperDetailActivity.class);
-        intent.putExtra(WallpaperImageDetailFragment.SELECTED_WALLPAPER, image);
-        getContext().startActivity(intent);
+        Intent intent = new Intent(getActivity(), WallpaperDetailActivity.class);
+        Bundle extras = new Bundle();
+        extras.putParcelable(WallpaperImageDetailFragment.SELECTED_WALLPAPER, image);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 }

@@ -19,8 +19,14 @@ public interface BaseView {
 
     /**
      * This method is used for showing error messages on the UI.
-     * @param message
+     * @param message The message to display.
      */
     void showError(String message);
+
+    /**
+     * This method is use for showing messages on the UI.
+     * @param message The message to display.
+     */
+    void showMessage(String message);
 
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.software.jgodort.graffpaper.R;
 
-public class Trending extends AppCompatActivity {
+public class TrendingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
