@@ -19,7 +19,7 @@ import javax.inject.Inject;
  * Created by javie on 07/05/2017.
  */
 
-public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements WallpaperDetailInteractor{
+public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements WallpaperDetailInteractor {
 
     @Inject
     Context mContext;
@@ -29,13 +29,13 @@ public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements 
 
     public ApplyWallpaperInteractorImpl(Executor threadExecutor, MainThread mainThread, String imageUrl, SetWallpaperCallback callback) {
         super(threadExecutor, mainThread);
-        mImageUrl=imageUrl;
-        mCallback=callback;
+        mImageUrl = imageUrl;
+        mCallback = callback;
         GraffpaperApplication.getApp().getApplicationComponent().inject(this);
 
     }
 
-    private void onSetDeviceWallpaper(){
+    private void onSetDeviceWallpaper() {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
@@ -45,7 +45,7 @@ public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements 
 
     }
 
-    private void onSetDeviceWallpaperError(){
+    private void onSetDeviceWallpaperError() {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
@@ -56,7 +56,7 @@ public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements 
 
     }
 
-    private void onSettedWallpaper(){
+    private void onSettedWallpaper() {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
@@ -66,20 +66,18 @@ public class ApplyWallpaperInteractorImpl extends AbstractInteractor implements 
     }
 
 
-
-
     @Override
     public void run() {
         onSetDeviceWallpaper();
 
-        WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
 
         try {
             wallpaperManager.setBitmap(
                     Glide.with(mContext).
                             load(mImageUrl).
                             asBitmap().
-                            into(-1,-1).
+                            into(-1, -1).
                             get());
 
             onSettedWallpaper();

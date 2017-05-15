@@ -2,5 +2,8 @@
     <string name="app_name">Graffpaper</string>
     <string name="title_trending">Trendig Wallpapers</string>
     <string name="no_wallpapers">There no wallpapers availables</string>
+    <string name="sample_username">Javier Godino</string>
+    <string name="sample_bio"> - Marketer - a fan of Random things and Good Humor • Graphic Designer • Social Media Specialist • Traveler</string>
+    <string name="location_unknown">Unknown</string>
 
 </resources>

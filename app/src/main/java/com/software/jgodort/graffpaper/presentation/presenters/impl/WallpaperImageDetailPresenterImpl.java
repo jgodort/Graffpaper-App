@@ -92,7 +92,7 @@ public class WallpaperImageDetailPresenterImpl extends AbstractPresenter impleme
             mView.setUserBio(mImageSelected.getUser().getBio());
             mView.setUserLocation(mImageSelected.getUser().getLocation());
             mView.setUserName(mImageSelected.getUser().getUsername());
-            mView.setUserPhotoThumbnail(mImageSelected.getUser().getProfileImage().getMedium());
+            mView.setUserPhotoThumbnail(mImageSelected.getUser().getProfileImage().getLarge());
             mView.setWallpaperImage(mImageSelected.getUrls().getRegular());
 
         } else {
