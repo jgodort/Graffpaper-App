@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +20,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.github.jorgecastilloprz.FABProgressCircle;
+import com.software.jgodort.graffpaper.GraffpaperApplication;
 import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.domain.executor.impl.ThreadExecutor;
 import com.software.jgodort.graffpaper.domain.repository.UnsplashRepository;
 import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.presentation.presenters.WallpaperImageDetailPresenter;
 import com.software.jgodort.graffpaper.presentation.presenters.impl.WallpaperImageDetailPresenterImpl;
+import com.software.jgodort.graffpaper.presentation.ui.adapters.WallpaperAdapter;
 import com.software.jgodort.graffpaper.threading.MainThreadImpl;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,11 +41,13 @@ import butterknife.ButterKnife;
  * Created by javie on 22/04/2017.
  */
 
-public class WallpaperImageDetailFragment extends Fragment implements WallpaperImageDetailPresenter.View {
+public class WallpaperImageDetailFragment extends Fragment implements WallpaperImageDetailPresenter.View, WallpaperAdapter.OnClickHandler {
 
     public static final String SELECTED_WALLPAPER = "SLTWLPR";
 
-    private Image selectedImage;
+    private Image mSelectedImage;
+
+    private WallpaperAdapter mWallpaperAdapter;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -68,6 +76,12 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     @BindView(R.id.fabProgressCircle)
     FABProgressCircle fabProgressCircle;
 
+    @BindView(R.id.wallpaper_detail_photos)
+    RecyclerView mRecyclerViewUserPhotos;
+
+    @BindView(R.id.emptyWallpaperLinear)
+    View mEmptyView;
+
     @Inject
     UnsplashRepository mUnsplashRepository;
 
@@ -88,15 +102,18 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_wallpaper_detail, container, false);
-
+        //Inject the dependecies
+        GraffpaperApplication.getApp().getRepositoriesComponent().inject(this);
         ButterKnife.bind(this, rootView);
         //initialize the presenter.
         init();
+        setupUserPhotoAdapter();
+
         //Obtain the image from the bundle.
         Bundle bundle = getArguments();
         if (bundle != null) {
-            selectedImage = bundle.getParcelable(SELECTED_WALLPAPER);
-            mPresenter.setImageData(selectedImage);
+            mSelectedImage = bundle.getParcelable(SELECTED_WALLPAPER);
+            mPresenter.setImageData(mSelectedImage);
         }
 
         return rootView;
@@ -123,6 +140,12 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
         });
     }
 
+    private void setupUserPhotoAdapter() {
+        mRecyclerViewUserPhotos.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRecyclerViewUserPhotos.setHasFixedSize(true);
+        mWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView, this);
+        mRecyclerViewUserPhotos.setAdapter(mWallpaperAdapter);
+    }
 
     @Override
     public void onResume() {
@@ -133,21 +156,11 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
 
     @Override
     public void showProgress() {
-
         fabProgressCircle.show();
-//        if (mProgressDialog == null) {
-//            mProgressDialog = new ProgressDialog(getActivity());
-//        }
-//
-//        mProgressDialog.setTitle("Setting as Wallpaper");
-//        mProgressDialog.setMessage("Ohhh dude!! This is going to looks awesome");
-//        mProgressDialog.setCancelable(false);
-//        mProgressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
         if (fabProgressCircle != null) {
             fabProgressCircle.beginFinalAnimation();
         }
@@ -211,4 +224,16 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
                 into(mWallpaperImage);
     }
 
+    @Override
+    public void setWallpaperRetrieved(List<Image> images) {
+        if (images != null && !images.isEmpty()) {
+            mWallpaperAdapter.setmImages(images);
+            mWallpaperAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onWallpaperImageSelected(Image image, WallpaperAdapter.ViewHolder vh) {
+
+    }
 }

@@ -51,7 +51,7 @@ public interface UnsplashAPI {
      * @param clientId the client id of the service.
      * @return a list with the photos of the user.
      */
-    @GET("user/{user}/photos")
+    @GET("users/{user}/photos")
     Call<List<Image>> getUserPhotos(@Path("user") String user,@Query("client_id") String clientId);
 
 

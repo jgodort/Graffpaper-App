@@ -33,7 +33,9 @@ public class WallpaperImageDetailPresenterImpl extends AbstractPresenter impleme
 
     @Override
     public void resume() {
-        getUserImages("");
+        if (mImageSelected != null) {
+            getUserImages(mImageSelected.getUser().getUsername());
+        }
 
     }
 
@@ -103,7 +105,7 @@ public class WallpaperImageDetailPresenterImpl extends AbstractPresenter impleme
 
     @Override
     public void onGetUserPhotosReceived(List<Image> photos) {
-
+        mView.setWallpaperRetrieved(photos);
     }
 
     @Override
