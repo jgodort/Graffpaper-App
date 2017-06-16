@@ -16,7 +16,10 @@ import java.util.List;
  * Created by javie on 22/04/2017.
  */
 
-public class WallpaperImageDetailPresenterImpl extends AbstractPresenter implements WallpaperImageDetailPresenter, WallpaperDetailInteractor.GetUserPhotosCallback, WallpaperDetailInteractor.SetWallpaperCallback {
+public class WallpaperImageDetailPresenterImpl extends AbstractPresenter implements
+        WallpaperImageDetailPresenter,
+        WallpaperDetailInteractor.GetUserPhotosCallback,
+        WallpaperDetailInteractor.SetWallpaperCallback {
 
     private Image mImageSelected;
 

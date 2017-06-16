@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,6 +26,7 @@ import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.domain.executor.impl.ThreadExecutor;
 import com.software.jgodort.graffpaper.domain.repository.UnsplashRepository;
 import com.software.jgodort.graffpaper.network.model.Image;
+import com.software.jgodort.graffpaper.presentation.presenters.FullScreenWallpaperViewerPresenter;
 import com.software.jgodort.graffpaper.presentation.presenters.WallpaperImageDetailPresenter;
 import com.software.jgodort.graffpaper.presentation.presenters.impl.WallpaperImageDetailPresenterImpl;
 import com.software.jgodort.graffpaper.presentation.ui.adapters.WallpaperAdapter;
@@ -38,16 +40,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by javie on 22/04/2017.
+ * Fragment that represent the wallpaper and user details.
+ * This fragment delegate the logic to the <>{@link WallpaperImageDetailPresenter}</>
  */
-
 public class WallpaperImageDetailFragment extends Fragment implements WallpaperImageDetailPresenter.View, WallpaperAdapter.OnClickHandler {
 
+    /**
+     * Key to extract the selected image from the Bundle.
+     */
     public static final String SELECTED_WALLPAPER = "SLTWLPR";
 
-    private Image mSelectedImage;
+    public static final String FULLSCREEN_PREVIEW = "FSPWLPR";
 
-    private WallpaperAdapter mWallpaperAdapter;
+    /**
+     * Adapter with the user images.
+     */
+    private WallpaperAdapter mUserWallpaperAdapter;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -73,15 +81,27 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     @BindView(R.id.location)
     TextView mProfileLocation;
 
+    /**
+     * Button to set the wallpaper as Device Wallpaper.
+     */
     @BindView(R.id.fabProgressCircle)
     FABProgressCircle fabProgressCircle;
 
+    /**
+     * RecyclerView to manage the list of related images previously uploaded by the user.
+     */
     @BindView(R.id.wallpaper_detail_photos)
     RecyclerView mRecyclerViewUserPhotos;
 
+    /**
+     * View to display when there no user data.
+     */
     @BindView(R.id.emptyWallpaperLinear)
     View mEmptyView;
 
+    /**
+     * Dependency of the Image Repository.
+     */
     @Inject
     UnsplashRepository mUnsplashRepository;
 
@@ -93,27 +113,46 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
 
     }
 
+    /**
+     * Method to manage the instantiation of this fragment.
+     *
+     * @return a new Instance of <>{@link WallpaperImageDetailFragment}</>
+     */
     public static WallpaperImageDetailFragment newInstance() {
         return new WallpaperImageDetailFragment();
     }
 
+    /**
+     * Lifecycle method to instantiate the view.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        //Inflate the layout XML.
         View rootView = inflater.inflate(R.layout.fragment_wallpaper_detail, container, false);
+
         //Inject the dependecies
         GraffpaperApplication.getApp().getRepositoriesComponent().inject(this);
+
+        //Bind the views with members variables.
         ButterKnife.bind(this, rootView);
+
         //initialize the presenter.
         init();
+
+        //initialize the adapter.
         setupUserPhotoAdapter();
 
         //Obtain the image from the bundle.
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mSelectedImage = bundle.getParcelable(SELECTED_WALLPAPER);
-            mPresenter.setImageData(mSelectedImage);
+            Image selectedImage = bundle.getParcelable(SELECTED_WALLPAPER);
+            mPresenter.setImageData(selectedImage);
         }
 
         return rootView;
@@ -121,7 +160,7 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     }
 
     /**
-     * Method to initialize the requiered components of the fragment.
+     * Method to initialize the required components of the fragment.
      */
     private void init() {
 
@@ -131,20 +170,24 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
                 this,
                 mUnsplashRepository);
 
-
+        //Set the listener to the FAB.
         mApplyWallpaperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.setAsDeviceWallpaper();
             }
         });
+
     }
 
+    /**
+     * Method to configure the user related photos adapter.
+     */
     private void setupUserPhotoAdapter() {
         mRecyclerViewUserPhotos.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerViewUserPhotos.setHasFixedSize(true);
-        mWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView, this);
-        mRecyclerViewUserPhotos.setAdapter(mWallpaperAdapter);
+        mUserWallpaperAdapter = new WallpaperAdapter(getContext(), mEmptyView, this);
+        mRecyclerViewUserPhotos.setAdapter(mUserWallpaperAdapter);
     }
 
     @Override
@@ -191,6 +234,11 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
         mUserBio.setText(userBio);
     }
 
+    /**
+     * Method to set the location to the Textview.
+     *
+     * @param userLocation Location of the user.
+     */
     @Override
     public void setUserLocation(String userLocation) {
 
@@ -201,20 +249,35 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
         }
     }
 
+    /**
+     * Method to set the profile user photo to the Imageview.
+     *
+     * @param userPhotoUrl URL of the profile photo.
+     */
     @Override
     public void setUserPhotoThumbnail(String userPhotoUrl) {
-
-        Glide.with(getContext()).load(userPhotoUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(mProfileImage) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
-                circularBitmapDrawable.setCircular(true);
-                mProfileImage.setImageDrawable(circularBitmapDrawable);
-            }
-        });
+        //Load the image using Glide.
+        Glide.with(getContext()).
+                load(userPhotoUrl).
+                asBitmap().
+                centerCrop().
+                into(new BitmapImageViewTarget(mProfileImage) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        //Customize the drawable to make a round ImageView
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        mProfileImage.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
+    /**
+     * Methot to load the Wallpaper Image selected by the user on the Header.
+     *
+     * @param imageUrl URL of the selected Wallpaper.
+     */
     @Override
     public void setWallpaperImage(String imageUrl) {
 
@@ -224,16 +287,55 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
                 into(mWallpaperImage);
     }
 
+    /**
+     * Method to asign the previous user photos on the adapter.
+     *
+     * @param images
+     */
     @Override
     public void setWallpaperRetrieved(List<Image> images) {
         if (images != null && !images.isEmpty()) {
-            mWallpaperAdapter.setmImages(images);
-            mWallpaperAdapter.notifyDataSetChanged();
+            mUserWallpaperAdapter.setmImages(images);
+            mUserWallpaperAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
+    public void setImageListener(final Image image) {
+        mWallpaperImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToFullScreenPreview(image);
+            }
+        });
+    }
+
+    /**
+     * Method to manage the image selection of the user
+     *
+     * @param image instance of selected <>{@link Image}</>
+     * @param vh    ViewHolder.
+     */
+    @Override
     public void onWallpaperImageSelected(Image image, WallpaperAdapter.ViewHolder vh) {
 
+        navigateToFullScreenPreview(image);
+    }
+
+    /**
+     * Method that manage the instantiation  and navigation of the Fullscreen Fragment.
+     *
+     * @param image
+     */
+    private void navigateToFullScreenPreview(Image image) {
+        Bundle bundleFullScreen = new Bundle();
+        bundleFullScreen.putParcelable(FULLSCREEN_PREVIEW, image);
+        Fragment fragment = FullScreenWallpaperViewerFragment.getNewInstance(bundleFullScreen);
+        getFragmentManager().
+                beginTransaction().
+                add(R.id.wallpaper_detail_container,
+                        fragment).
+                addToBackStack("fullScreen").
+                commit();
     }
 }

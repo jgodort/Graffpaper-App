@@ -29,6 +29,9 @@ public interface WallpaperImageDetailPresenter extends BasePresenter {
         void setWallpaperImage(String imageUrl);
 
         void setWallpaperRetrieved(List<Image> images);
+
+        void setImageListener(Image image);
+
     }
 
 
@@ -37,6 +40,7 @@ public interface WallpaperImageDetailPresenter extends BasePresenter {
     void getUserImages(String username);
 
     void setImageData(Image image);
+
 
 }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -111,19 +112,20 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
     @Override
     public void hideProgress() {
         if (mProgressDialog != null) {
-            mProgressDialog.hide();
+            mProgressDialog.dismiss();
+            mProgressDialog=null;
         }
 
     }
 
     @Override
     public void showError(String message) {
-        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void showMessage(String message) {
-        Snackbar.make(getView(),message,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -144,7 +146,8 @@ public class TrendingWallpapersFragment extends Fragment implements TrendingWall
         Bundle extras = new Bundle();
         extras.putParcelable(WallpaperImageDetailFragment.SELECTED_WALLPAPER, image);
         intent.putExtras(extras);
-        startActivity(intent);
+        ActivityOptionsCompat optionsCompat =ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());// ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), vh.mWallpaperThumb, "wallpaper_image");
+        startActivity(intent, optionsCompat.toBundle());
     }
 
 }

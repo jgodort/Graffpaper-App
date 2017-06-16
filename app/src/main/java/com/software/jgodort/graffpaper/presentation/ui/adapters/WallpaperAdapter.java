@@ -8,7 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.presentation.ui.fragments.WallpaperImageDetailFragment;
@@ -16,6 +22,7 @@ import com.software.jgodort.graffpaper.presentation.ui.fragments.WallpaperImageD
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +31,6 @@ import butterknife.ButterKnife;
  */
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
-
 
 
     private List<Image> mImages;
@@ -46,15 +52,16 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         final Image image = mImages.get(position);
+
         // holder.mWallpaperThumb.setImageResource(R.drawable.sample1);
         Glide.with(mContext).
                 load(image.getUrls().getThumb()).
-                //override(150, 200).
-                        centerCrop().
+                centerCrop().placeholder(R.drawable.ic_file_image).
                 into(holder.mWallpaperThumb);
 
 
@@ -88,11 +95,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     public final class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_thumb)
-        ImageView mWallpaperThumb;
+        public ImageView mWallpaperThumb;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
 
         }

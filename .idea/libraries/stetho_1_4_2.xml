@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="stetho-1.4.2">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/e23658565b3a8cb0cec6f892a0fabcf834b49c10/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/e23658565b3a8cb0cec6f892a0fabcf834b49c10/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/404c79379c8a31c01c914fdb00459e9c355519d4/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/404c79379c8a31c01c914fdb00459e9c355519d4/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
