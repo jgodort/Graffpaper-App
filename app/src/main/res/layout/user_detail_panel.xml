@@ -5,7 +5,6 @@
     android:id="@+id/profile_details_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:alpha="0.8"
     android:background="@color/cardview_dark_background"
     android:orientation="vertical"
     app:layout_collapseMode="parallax">
@@ -45,12 +44,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout android:padding="5dp"
+    <LinearLayout
         android:id="@+id/user_info_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/location"
@@ -58,9 +58,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="2dp"
             android:drawableStart="@drawable/ic_map_marker_radius"
             android:gravity="center_vertical"
             android:lines="2"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             tools:text="London" />
 
         <TextView
@@ -76,6 +79,4 @@
             tools:text="@string/sample_bio" />
 
     </LinearLayout>
-
-
 </LinearLayout>

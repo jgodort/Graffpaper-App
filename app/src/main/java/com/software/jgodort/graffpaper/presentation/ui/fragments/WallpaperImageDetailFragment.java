@@ -81,11 +81,6 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
     @BindView(R.id.location)
     TextView mProfileLocation;
 
-    /**
-     * Button to set the wallpaper as Device Wallpaper.
-     */
-    @BindView(R.id.fabProgressCircle)
-    FABProgressCircle fabProgressCircle;
 
     /**
      * RecyclerView to manage the list of related images previously uploaded by the user.
@@ -199,14 +194,11 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
 
     @Override
     public void showProgress() {
-        fabProgressCircle.show();
     }
 
     @Override
     public void hideProgress() {
-        if (fabProgressCircle != null) {
-            fabProgressCircle.beginFinalAnimation();
-        }
+
     }
 
     @Override
