@@ -11,4 +11,8 @@
     <string name="a11y_wallpaper_image">Wallpaper Image</string>
     <string name="a11y_user_profile_photo">User Profile Photo</string>
 
+    <string name="trending_tab_text">Trending</string>
+    <string name="collection_tab_text">Collections</string>
+    <string name="curated_tab_text">Curated</string>
+
 </resources>

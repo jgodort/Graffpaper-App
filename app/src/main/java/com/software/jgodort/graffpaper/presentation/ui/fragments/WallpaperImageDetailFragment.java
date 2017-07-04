@@ -150,6 +150,8 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
             mPresenter.setImageData(selectedImage);
         }
 
+
+
         return rootView;
 
     }
@@ -301,6 +303,7 @@ public class WallpaperImageDetailFragment extends Fragment implements WallpaperI
             }
         });
     }
+
 
     /**
      * Method to manage the image selection of the user

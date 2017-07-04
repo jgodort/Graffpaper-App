@@ -37,6 +37,7 @@ public class WallpaperImageDetailPresenterImpl extends AbstractPresenter impleme
     @Override
     public void resume() {
         if (mImageSelected != null) {
+            mView.setImageListener(mImageSelected);
             getUserImages(mImageSelected.getUser().getUsername());
         }
 
