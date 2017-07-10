@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.software.jgodort.graffpaper.R;
 import com.software.jgodort.graffpaper.presentation.ui.adapters.FragmentAdapter;
+import com.software.jgodort.graffpaper.presentation.ui.fragments.CollectionsFragment;
 import com.software.jgodort.graffpaper.presentation.ui.fragments.TrendingWallpapersFragment;
 
 import butterknife.BindView;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new TrendingWallpapersFragment(), getString(R.string.trending_tab_text));
         adapter.addFragment(new TrendingWallpapersFragment(), getString(R.string.curated_tab_text));
-        adapter.addFragment(new TrendingWallpapersFragment(), getString(R.string.collection_tab_text));
+        adapter.addFragment(new CollectionsFragment(), getString(R.string.collection_tab_text));
         viewPager.setAdapter(adapter);
     }
 

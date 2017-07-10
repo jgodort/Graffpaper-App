@@ -11,4 +11,6 @@ public interface UnsplashRepository {
     void getTrendingPhotos(ResponseListener listener);
 
     void getUserPhotos(ResponseListener listener, String username);
+
+    void getCollections(ResponseListener listener);
 }

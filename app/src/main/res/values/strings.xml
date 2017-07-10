@@ -14,5 +14,7 @@
     <string name="trending_tab_text">Trending</string>
     <string name="collection_tab_text">Collections</string>
     <string name="curated_tab_text">Curated</string>
+    <string name="photo"> %1$s Photos</string>
+    <string name="title_collections">Collections</string>
 
 </resources>

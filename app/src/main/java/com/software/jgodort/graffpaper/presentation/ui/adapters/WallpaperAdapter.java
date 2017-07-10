@@ -30,7 +30,8 @@ import butterknife.ButterKnife;
  * Created by javie on 14/04/2017.
  */
 
-public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
+public class WallpaperAdapter extends
+        RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
 
 
     private List<Image> mImages;

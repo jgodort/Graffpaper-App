@@ -15,7 +15,9 @@ import java.util.List;
  * Created by javie on 14/04/2017.
  */
 
-public class TrendingWallpapersPresenterImpl extends AbstractPresenter implements TrendingWallpapersPresenter, TrendingWallpapersInteractor.GetPhotosCallback {
+public class TrendingWallpapersPresenterImpl extends AbstractPresenter
+        implements TrendingWallpapersPresenter,
+        TrendingWallpapersInteractor.GetPhotosCallback {
 
 
     private TrendingWallpapersPresenter.View mView;

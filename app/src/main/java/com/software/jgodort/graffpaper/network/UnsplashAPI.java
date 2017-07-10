@@ -1,5 +1,6 @@
 package com.software.jgodort.graffpaper.network;
 
+import com.software.jgodort.graffpaper.network.model.Collection;
 import com.software.jgodort.graffpaper.network.model.Image;
 import com.software.jgodort.graffpaper.network.model.Statistics;
 import com.software.jgodort.graffpaper.network.model.User;
@@ -52,13 +53,13 @@ public interface UnsplashAPI {
      * @return a list with the photos of the user.
      */
     @GET("users/{user}/photos")
-    Call<List<Image>> getUserPhotos(@Path("user") String user,@Query("client_id") String clientId);
+    Call<List<Image>> getUserPhotos(@Path("user") String user, @Query("client_id") String clientId);
 
 
     /**
      * Get a <>{@link Image}</> by Id.
      *
-     * @param  id the photo Id
+     * @param id       the photo Id
      * @param clientId the client id of the service.
      * @return a Image object with the information.
      */
@@ -77,12 +78,22 @@ public interface UnsplashAPI {
 
     /**
      * Get the statistics associated to a photo.
-     * @param id photo id
+     *
+     * @param id       photo id
      * @param clientId the client id of the service.
      * @return a <>{@link Statistics}</>  object with all the associated data.
      */
     @GET("photos/{id}/statistics")
-    Statistics getPhotoStatistics(@Path("id")String id, @Header("client_id") String clientId);
+    Statistics getPhotoStatistics(@Path("id") String id, @Header("client_id") String clientId);
+
+    /**
+     * Get the list of recents collections.
+     *
+     * @param clientId the client id of the service.
+     * @return a <>{@link Collection}</> objects with all the associated data.
+     */
+    @GET("collections")
+    Call<List<Collection>> getCollections(@Query("client_id") String clientId);
 
 
 }

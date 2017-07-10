@@ -1,5 +1,6 @@
 package com.software.jgodort.graffpaper;
 
+import com.software.jgodort.graffpaper.presentation.ui.fragments.CollectionsFragment;
 import com.software.jgodort.graffpaper.presentation.ui.fragments.TrendingWallpapersFragment;
 import com.software.jgodort.graffpaper.presentation.ui.fragments.WallpaperImageDetailFragment;
 
@@ -16,5 +17,8 @@ import dagger.Component;
 public interface RepositoriesComponent {
 
     void inject(TrendingWallpapersFragment trendingWallpapersFragment);
+
     void inject(WallpaperImageDetailFragment wallpaperImageDetailFragment);
+
+    void inject(CollectionsFragment collectionsFragment);
 }

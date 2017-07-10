@@ -10,8 +10,8 @@ import timber.log.Timber;
 
 /**
  * Class that represent the application.
- *
- * Created by javie on 08/04/2017.
+ * <p>
+ * Created by javier on 08/04/2017.
  */
 public class GraffpaperApplication extends Application {
 
@@ -35,8 +35,14 @@ public class GraffpaperApplication extends Application {
         Timber.plant();
 
         configureDaggerComponents();
+        configureLeakCanary();
+        configureStetho();
 
 
+    }
+
+    private void configureStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 
     private void configureDaggerComponents() {
@@ -54,7 +60,7 @@ public class GraffpaperApplication extends Application {
                 .build();
     }
 
-    private void configureLeakCanary(){
+    private void configureLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.

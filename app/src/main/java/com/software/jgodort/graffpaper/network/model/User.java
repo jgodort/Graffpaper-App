@@ -1,223 +1,214 @@
-
 package com.software.jgodort.graffpaper.network.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+@Generated("com.robohorse.robopojogenerator")
 public class User implements Parcelable {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
-    @SerializedName("username")
-    @Expose
-    private String username;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("first_name")
-    @Expose
-    private String firstName;
-    @SerializedName("last_name")
-    @Expose
-    private String lastName;
-    @SerializedName("portfolio_url")
-    @Expose
-    private String portfolioUrl;
-    @SerializedName("bio")
-    @Expose
-    private String bio;
-    @SerializedName("location")
-    @Expose
-    private String location;
-    @SerializedName("total_likes")
-    @Expose
-    private Integer totalLikes;
-    @SerializedName("total_photos")
-    @Expose
-    private Integer totalPhotos;
-    @SerializedName("total_collections")
-    @Expose
-    private Integer totalCollections;
-    @SerializedName("profile_image")
-    @Expose
-    private ProfileImage profileImage;
+	@SerializedName("profile_image")
+	private ProfileImage profileImage;
 
-    @SerializedName("userLinks")
-    @Expose
-    private UserLinks userLinks;
+	@SerializedName("updated_at")
+	private String updatedAt;
 
-    public String getId() {
-        return id;
-    }
+	@SerializedName("total_photos")
+	private int totalPhotos;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@SerializedName("name")
+	private String name;
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+	@SerializedName("bio")
+	private String bio;
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	@SerializedName("location")
+	private String location;
 
-    public String getUsername() {
-        return username;
-    }
+	@SerializedName("total_collections")
+	private int totalCollections;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	@SerializedName("links")
+	private Links links;
 
-    public String getName() {
-        return name;
-    }
+	@SerializedName("id")
+	private String id;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@SerializedName("total_likes")
+	private int totalLikes;
 
-    public String getFirstName() {
-        return firstName;
-    }
+	@SerializedName("portfolio_url")
+	private String portfolioUrl;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	@SerializedName("username")
+	private String username;
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setProfileImage(ProfileImage profileImage){
+		this.profileImage = profileImage;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public ProfileImage getProfileImage(){
+		return profileImage;
+	}
 
-    public String getPortfolioUrl() {
-        return portfolioUrl;
-    }
+	public void setUpdatedAt(String updatedAt){
+		this.updatedAt = updatedAt;
+	}
 
-    public void setPortfolioUrl(String portfolioUrl) {
-        this.portfolioUrl = portfolioUrl;
-    }
+	public String getUpdatedAt(){
+		return updatedAt;
+	}
 
-    public String getBio() {
-        return bio;
-    }
+	public void setTotalPhotos(int totalPhotos){
+		this.totalPhotos = totalPhotos;
+	}
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
+	public int getTotalPhotos(){
+		return totalPhotos;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public void setName(String name){
+		this.name = name;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public String getName(){
+		return name;
+	}
 
-    public Integer getTotalLikes() {
-        return totalLikes;
-    }
+	public void setBio(String bio){
+		this.bio = bio;
+	}
 
-    public void setTotalLikes(Integer totalLikes) {
-        this.totalLikes = totalLikes;
-    }
+	public String getBio(){
+		return bio;
+	}
 
-    public Integer getTotalPhotos() {
-        return totalPhotos;
-    }
+	public void setLocation(String location){
+		this.location = location;
+	}
 
-    public void setTotalPhotos(Integer totalPhotos) {
-        this.totalPhotos = totalPhotos;
-    }
+	public String getLocation(){
+		return location;
+	}
 
-    public Integer getTotalCollections() {
-        return totalCollections;
-    }
+	public void setTotalCollections(int totalCollections){
+		this.totalCollections = totalCollections;
+	}
 
-    public void setTotalCollections(Integer totalCollections) {
-        this.totalCollections = totalCollections;
-    }
+	public int getTotalCollections(){
+		return totalCollections;
+	}
 
-    public ProfileImage getProfileImage() {
-        return profileImage;
-    }
+	public void setLinks(Links links){
+		this.links = links;
+	}
 
-    public void setProfileImage(ProfileImage profileImage) {
-        this.profileImage = profileImage;
-    }
+	public Links getLinks(){
+		return links;
+	}
 
-    public UserLinks getUserLinks() {
-        return userLinks;
-    }
+	public void setId(String id){
+		this.id = id;
+	}
 
-    public void setUserLinks(UserLinks userLinks) {
-        this.userLinks = userLinks;
-    }
+	public String getId(){
+		return id;
+	}
+
+	public void setTotalLikes(int totalLikes){
+		this.totalLikes = totalLikes;
+	}
+
+	public int getTotalLikes(){
+		return totalLikes;
+	}
+
+	public void setPortfolioUrl(String portfolioUrl){
+		this.portfolioUrl = portfolioUrl;
+	}
+
+	public String getPortfolioUrl(){
+		return portfolioUrl;
+	}
+
+	public void setUsername(String username){
+		this.username = username;
+	}
+
+	public String getUsername(){
+		return username;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"User{" + 
+			"profile_image = '" + profileImage + '\'' + 
+			",updated_at = '" + updatedAt + '\'' + 
+			",total_photos = '" + totalPhotos + '\'' + 
+			",name = '" + name + '\'' + 
+			",bio = '" + bio + '\'' + 
+			",location = '" + location + '\'' + 
+			",total_collections = '" + totalCollections + '\'' + 
+			",links = '" + links + '\'' + 
+			",id = '" + id + '\'' + 
+			",total_likes = '" + totalLikes + '\'' + 
+			",portfolio_url = '" + portfolioUrl + '\'' + 
+			",username = '" + username + '\'' + 
+			"}";
+		}
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+	@Override
+	public int describeContents() {
+		return 0;
+	}
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.updatedAt);
-        dest.writeString(this.username);
-        dest.writeString(this.name);
-        dest.writeString(this.firstName);
-        dest.writeString(this.lastName);
-        dest.writeString(this.portfolioUrl);
-        dest.writeString(this.bio);
-        dest.writeString(this.location);
-        dest.writeValue(this.totalLikes);
-        dest.writeValue(this.totalPhotos);
-        dest.writeValue(this.totalCollections);
-        dest.writeParcelable(this.profileImage, flags);
-        dest.writeParcelable(this.userLinks, flags);
-    }
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeParcelable(this.profileImage, flags);
+		dest.writeString(this.updatedAt);
+		dest.writeInt(this.totalPhotos);
+		dest.writeString(this.name);
+		dest.writeString(this.bio);
+		dest.writeString(this.location);
+		dest.writeInt(this.totalCollections);
+		dest.writeParcelable(this.links, flags);
+		dest.writeString(this.id);
+		dest.writeInt(this.totalLikes);
+		dest.writeString(this.portfolioUrl);
+		dest.writeString(this.username);
+	}
 
-    public User() {
-    }
+	public User() {
+	}
 
-    protected User(Parcel in) {
-        this.id = in.readString();
-        this.updatedAt = in.readString();
-        this.username = in.readString();
-        this.name = in.readString();
-        this.firstName = in.readString();
-        this.lastName = in.readString();
-        this.portfolioUrl = in.readString();
-        this.bio = in.readString();
-        this.location = in.readString();
-        this.totalLikes = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.totalPhotos = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.totalCollections = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.profileImage = in.readParcelable(ProfileImage.class.getClassLoader());
-        this.userLinks = in.readParcelable(UserLinks.class.getClassLoader());
-    }
+	protected User(Parcel in) {
+		this.profileImage = in.readParcelable(ProfileImage.class.getClassLoader());
+		this.updatedAt = in.readString();
+		this.totalPhotos = in.readInt();
+		this.name = in.readString();
+		this.bio = in.readString();
+		this.location = in.readString();
+		this.totalCollections = in.readInt();
+		this.links = in.readParcelable(Links.class.getClassLoader());
+		this.id = in.readString();
+		this.totalLikes = in.readInt();
+		this.portfolioUrl = in.readString();
+		this.username = in.readString();
+	}
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
+	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+		@Override
+		public User createFromParcel(Parcel source) {
+			return new User(source);
+		}
 
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
+		@Override
+		public User[] newArray(int size) {
+			return new User[size];
+		}
+	};
 }

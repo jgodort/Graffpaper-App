@@ -67,7 +67,7 @@ public class TrendingWallpapersInteractorImpl extends AbstractInteractor impleme
 
             @Override
             public void onFailure(Object error) {
-                //TODO
+                //TODO: GET THE PROPER ERROR
                 String errorMessage = "TRAZA DE PRUEBA";
                 notifyError(errorMessage);
             }
